@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'json'
 require 'mocha/test_unit'
@@ -16,8 +18,8 @@ class SaltApiFeaturesTest < Test::Unit::TestCase
   end
 
   def test_features
-    Proxy::LegacyModuleLoader.any_instance.expects(:load_configuration_file).with('dynflow.yml').returns(enabled: true)
-    Proxy::DefaultModuleLoader.any_instance.expects(:load_configuration_file).with('salt.yml').returns(enabled: true)
+    Proxy::LegacyModuleLoader.any_instance.expects(:load_configuration_file).with('dynflow.yml').returns(:enabled => true)
+    Proxy::DefaultModuleLoader.any_instance.expects(:load_configuration_file).with('salt.yml').returns(:enabled => true)
 
     get '/features'
 
@@ -31,8 +33,8 @@ class SaltApiFeaturesTest < Test::Unit::TestCase
   end
 
   def test_without_dynflow
-    Proxy::LegacyModuleLoader.any_instance.expects(:load_configuration_file).with('dynflow.yml').returns(enabled: false)
-    Proxy::DefaultModuleLoader.any_instance.expects(:load_configuration_file).with('salt.yml').returns(enabled: true)
+    Proxy::LegacyModuleLoader.any_instance.expects(:load_configuration_file).with('dynflow.yml').returns(:enabled => false)
+    Proxy::DefaultModuleLoader.any_instance.expects(:load_configuration_file).with('salt.yml').returns(:enabled => true)
 
     get '/features'
 
